@@ -34,18 +34,15 @@ public class ScalarField implements Iterable<Cube> {
         for (int x = 0; x < nbPtsX; x++) {
             for (int y = 0; y < nbPtsY ; y++) {
                 for (int z = 0; z < nbPtsZ; z++) {
-                    Point[] points = {
-                            new Point(x,y,z,0, applet), //[0,0,0]
-                            new Point(x,y,z,0, applet), //[0,0,0]
-                            new Point(x,y,z,0, applet), //[0,0,0]
-                            new Point(x,y,z,0, applet), //[0,0,0]
-                            new Point(x,y,z,0, applet), //[0,0,0]
-                            new Point(x,y,z,0, applet), //[0,0,0]
-                            new Point(x,y,z,0, applet), //[0,0,0]
-                            new Point(x,y,z,0, applet), //[0,0,0]
+                    int[][] pointsOffset = {{0,0,1},{1,0,1},{1,0,0},{0,0,0},{0,1,1},{1,1,1},{1,1,0},{0,1,0}};
 
+                    Point[] points = new Point[8];
 
-                    };
+                    for (int i = 0; i < 8; i++) {
+                        points[i] = new Point((x + (float)pointsOffset[i][0]) * space,(y + (float)pointsOffset[i][1])*space,
+                                (z + (float)pointsOffset[i][2])*space,(int) (Math.random()*255), applet);
+                        //System.out.println(points[i]);
+                    }
                     cubes.add(new Cube(points,applet));
                 }
             }

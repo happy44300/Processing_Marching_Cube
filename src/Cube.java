@@ -3,34 +3,26 @@ import processing.core.PConstants;
 
 public class Cube {
     Point[] points;
-    PApplet applet;
+    Main applet;
 
     public Cube(Point[] points, PApplet applet) {
         this.points = points;
-        this.applet = applet;
+        this.applet = (Main)applet;
     }
 
     public void draw(){
-        applet.beginShape();
-        for(Point point : points) {
-            applet.vertex(point.x,point.y,point.z);
+        applet.beginShape(PConstants.POINTS);
+        for (int i = 0; i < 4; i++) {
+            applet.line(points[i],points[i+4]);
+            applet.line(points[i],points[(i+1)%4]);
+            applet.line(points[i+4],points[(i+1)%4+4]);
         }
-        applet.endShape(PConstants.CLOSE);
+        applet.endShape(applet.CLOSE);
     }
 
     public Point[] getPoints() {
         return points;
     }
 
-    public void setPoints(Point[] points) {
-        this.points = points;
-    }
 
-    public PApplet getApplet() {
-        return applet;
-    }
-
-    public void setApplet(PApplet applet) {
-        this.applet = applet;
-    }
 }

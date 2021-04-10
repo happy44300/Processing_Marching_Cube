@@ -13,8 +13,23 @@ public class Point {
         this.main = main;
     }
 
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                ", isoSurface=" + isoSurface +
+                ", main=" + main +
+                '}';
+    }
+
     public void Draw(){
-        main.translate(x,y,z);
-        main.sphere(10);
+        if(isoSurface < 255/2) {
+            main.pushMatrix();
+            main.translate(x, y, z);
+            main.sphere(1);
+            main.popMatrix();
+        }
     }
 }
