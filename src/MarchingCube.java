@@ -1,9 +1,12 @@
 import processing.core.PApplet;
 
+import java.util.ArrayList;
+
 public class MarchingCube {
 
     ScalarField scalarField;
     PApplet applet;
+    ArrayList<Triangle> triangles;
     int isoLevel;
 
     public MarchingCube(ScalarField scalarField, PApplet applet, int isolevel) {
@@ -12,19 +15,28 @@ public class MarchingCube {
         this.isoLevel = isolevel;
     }
 
-    public void march(){
-        for (Cube cube : scalarField){
+    public void march() {
+        for (Cube cube : scalarField) {
             int cubeIndex = 0;
-            for(int i=0; i<8; i++) {
+
+            //calculate cube index
+            for (int i = 0; i < 8; i++) {
                 if (cube.getPoints()[i].isoSurface < isoLevel) {
                     cubeIndex |= 1 << i;
                 }
             }
-            if(TriangulationTable.edgeTable[cubeIndex] == 0){
-                return;
+
+
+            for(int i =0; TriangulationTable.triTable[cubeIndex][i] !=-1; i +=3) {
+                Triangle triangle;
             }
         }
     }
 
+    public void drawTriangulation(){
+        for (Triangle triangle: triangles) {
+            triangle.draw();
+        }
+    }
 }
 
