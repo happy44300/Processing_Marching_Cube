@@ -1,3 +1,5 @@
+package src;
+
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -21,19 +23,21 @@ public class MarchingCube {
 
             //calculate cube index
             for (int i = 0; i < 8; i++) {
-                if (cube.getPoints()[i].isoSurface < isoLevel) {
+                if (cube.getPoints()[i].isoSurface > isoLevel) {
                     cubeIndex |= 1 << i;
                 }
             }
 
-            int[] triangulation = TriangulationTable.triTable[cubeIndex];
+            if(cubeIndex != 0) System.out.println(cubeIndex);
 
             for(int i = 0; TriangulationTable.triTable[cubeIndex][i] !=-1; i += 3) {
-                cube.drawTriangleFromEdgeIndexes(TriangulationTable.triTable[cubeIndex][i], TriangulationTable.triTable[cubeIndex][i+1], TriangulationTable.triTable[cubeIndex][i+2]);
+                cube.drawTriangleFromEdgeIndexes(
+                        TriangulationTable.triTable[cubeIndex][i],
+                        TriangulationTable.triTable[cubeIndex][i+1],
+                        TriangulationTable.triTable[cubeIndex][i+2]);
             }
         }
     }
-
     public void drawTriangulation(){
         for (Triangle triangle: triangles) {
             triangle.draw();

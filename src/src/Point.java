@@ -1,3 +1,5 @@
+package src;
+
 import processing.core.PApplet;
 
 public class Point {
@@ -23,7 +25,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return "Point{" +
+        return "src.Point{" +
                 "x=" + x +
                 ", y=" + y +
                 ", z=" + z +

@@ -1,3 +1,5 @@
+package src;
+
 public final class TriangulationTable {
 
     //<editor-fold desc="edgeTable">

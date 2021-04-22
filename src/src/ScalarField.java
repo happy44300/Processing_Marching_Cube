@@ -1,4 +1,7 @@
+package src;
+
 import processing.core.PApplet;
+import src.generator.Generator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,22 +11,26 @@ public class ScalarField implements Iterable<Cube> {
     int nbPtsX, nbPtsY,nbPtsZ;
     ArrayList<Cube> cubes;
     PApplet applet;
+    Generator generator;
 
-    public ScalarField(int space, int nbPtsX, int nbPtsY, int nbPtsZ, PApplet applet) {
+    public ScalarField(int space, int nbPtsX, int nbPtsY, int nbPtsZ, ArrayList<Cube> cubes, Generator generator, PApplet applet) {
         this.space = space;
         this.nbPtsX = nbPtsX;
         this.nbPtsY = nbPtsY;
         this.nbPtsZ = nbPtsZ;
+        this.cubes = cubes;
         this.applet = applet;
+        this.generator = generator;
         generateField();
     }
 
-    public ScalarField(int space, int nbPts, PApplet applet) {
+    public ScalarField(int space, int nbPts, Generator generator, PApplet applet) {
         this.space = space;
         this.nbPtsX = nbPts;
         this.nbPtsY = nbPts;
         this.nbPtsZ = nbPts;
         this.applet = applet;
+        this.generator = generator;
         generateField();
     }
 
@@ -39,8 +46,12 @@ public class ScalarField implements Iterable<Cube> {
                     Point[] points = new Point[8];
 
                     for (int i = 0; i < 8; i++) {
-                        points[i] = new Point((x + (float)pointsOffset[i][0]) * space,(y + (float)pointsOffset[i][1])*space,
-                                (z + (float)pointsOffset[i][2])*space,(int) (Math.random()*255), applet);
+                                float px = (x + (float)pointsOffset[i][0]) * space;
+                                float py =(y + (float)pointsOffset[i][1])*space;
+                                float pz = (z + (float)pointsOffset[i][2])*space;
+                        points[i] = new Point(
+                                px, py, pz, generator.generate(new Point(px,py,pz,0,applet)),
+                                applet);
                         //System.out.println(points[i]);
                     }
                     cubes.add(new Cube(points,applet));

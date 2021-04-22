@@ -1,32 +1,38 @@
+package src;
+
 import processing.core.PApplet;
 import peasy.*;
+import src.generator.ConstantHigh;
+import src.generator.Generator;
 
 public class Main extends PApplet {
-
-    float x,y,z;
-    PeasyCam cam;
-    ScalarField scalarField;
-    MarchingCube marchingCube;
 
     final int space = 10;
     final int nbPts = 10;
 
+    PeasyCam cam;
+    Generator generator;
+    ScalarField scalarField;
+    MarchingCube marchingCube;
+
+
+
     @Override
     public void settings(){
         size(512, 512, P3D);
-        scalarField = new ScalarField(space,nbPts,this);
+        generator = new ConstantHigh();
+        scalarField = new ScalarField(space,nbPts,generator,this);
         marchingCube = new MarchingCube(this.scalarField, this,123);
     }
     @Override
     public void setup(){
-        cam = new PeasyCam(this, (space*nbPts)/2,(space*nbPts)/2,(space*nbPts)/2,80);
+        cam = new PeasyCam(this, (space*nbPts)/(float)2,(space*nbPts)/(float)2,(space*nbPts)/(float)2,80);
 
     }
 
     @Override
     public void draw(){
         background(255);
-        scalarField.draw();
         marchingCube.march();
     }
 
@@ -35,7 +41,7 @@ public class Main extends PApplet {
     }
 
     public static void main(String... args){
-        PApplet.main("Main");
+        PApplet.main("src.Main");
 
     }
 }
