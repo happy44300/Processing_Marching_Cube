@@ -13,6 +13,14 @@ public class Point {
         this.main = main;
     }
 
+    public Point(PApplet main) {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.isoSurface = 0;
+        this.main = main;
+    }
+
     @Override
     public String toString() {
         return "Point{" +

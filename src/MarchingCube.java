@@ -26,10 +26,6 @@ public class MarchingCube {
                 }
             }
 
-
-            for(int i =0; TriangulationTable.triTable[cubeIndex][i] !=-1; i +=3) {
-                Triangle triangle;
-            }
         }
     }
 
