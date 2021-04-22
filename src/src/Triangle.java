@@ -1,16 +1,20 @@
 package src;
 
-import processing.core.PConstants;
-
+/**
+ * Represent a triangle
+ */
 public class Triangle {
     Point[] vertices;
     Main applet;
 
-    public Triangle(Point[] vertices, Main applet) {
-        this.vertices = vertices;
-        this.applet = applet;
-    }
 
+    /**
+     * Create a triangle from 3 points
+     * @param v1 1st point
+     * @param v2 2st point
+     * @param v3 3st point
+     * @param applet linl
+     */
     public Triangle(Point v1, Point v2, Point v3, Main applet) {
         Point[] v;
         v = new Point[3];
@@ -21,6 +25,9 @@ public class Triangle {
         this.applet = applet;
     }
 
+    /**
+     * Draw this triangle as a solid purple triangle
+     */
     public void draw(){
         applet.fill(255,0,255);
         applet.beginShape();

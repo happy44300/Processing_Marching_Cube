@@ -3,22 +3,29 @@ package src;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-import java.time.temporal.Temporal;
-
-
+/**
+ * Represent a cube
+ */
 public class Cube {
+    /**
+     * The points of cube, following the order in report
+     */
     Point[] points;
     Main applet;
 
+    /**
+     * Create a cube from a list of point. The point have to follow the order described in the report
+     * @param points The points array
+     * @param applet link to the main class
+     */
     public Cube(Point[] points, PApplet applet) {
         this.points = points;
         this.applet = (Main)applet;
     }
 
-    public Point[] getEdge(){
-        return  points;
-    }
-
+    /**
+     * Draw the cube
+     */
     public void draw(){
         applet.beginShape(PConstants.POINTS);
         for (int i = 0; i < 4; i++) {
@@ -29,11 +36,23 @@ public class Cube {
         applet.endShape(applet.CLOSE);
     }
 
-
+    /**
+     * Getter for the cube points
+     * @return an array containing the cube points
+     */
     public Point[] getPoints() {
         return points;
     }
 
+    /**
+     * From 3 edge, return a triangle
+     * @param edgeA 1st edge
+     * @param edgeB 2nd edge
+     * @param edgeC 3nd edge
+     * @param isoLevel The isoLevel used
+     * @return A triangle formed from 3 points on the selected edge.
+     * The points position of the point between the edge is interpolated using their respective isoLevel and the global isoLevel
+     */
     public Triangle triangleFromEdgeIndexes(int edgeA, int edgeB, int edgeC, int isoLevel){
 
         Point cornerA1 = new Point(this.applet);
@@ -204,9 +223,16 @@ public class Cube {
         return new Triangle(interpolate(cornerA1, cornerA2, isoLevel), interpolate(cornerB1, cornerB2,isoLevel), interpolate(cornerC1, cornerC2,isoLevel), this.applet);
     }
 
+    /**
+     * Interpolate between 2 points using isoLevel
+     * @param p1 1st point to interpolate
+     * @param p2 2st point to interpolate
+     * @param isoLevel The isoLevel
+     * @return An interpolated point
+     */
     private Point interpolate(Point p1, Point p2, int isoLevel){
-        float mu = ((float)isoLevel- p1.isoSurface)/(p2.isoSurface - p1.isoSurface);
-        return new Point(applet.lerp(p1.x,p2.x, mu ),applet.lerp(p1.y,p2.y,mu),applet.lerp(p1.z, p2.z, mu), 0, this.applet);
+        float mu = ((float)isoLevel- p1.isoLevel)/(p2.isoLevel - p1.isoLevel);
+        return new Point(PApplet.lerp(p1.x,p2.x, mu ), PApplet.lerp(p1.y,p2.y,mu), PApplet.lerp(p1.z, p2.z, mu), 0, this.applet);
     }
 
 }

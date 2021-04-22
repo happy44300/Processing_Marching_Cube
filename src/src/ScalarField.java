@@ -6,24 +6,43 @@ import src.generator.Generator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Represent a scalar field
+ */
 public class ScalarField implements Iterable<Cube> {
+
     int space;
     int nbPtsX, nbPtsY,nbPtsZ;
     ArrayList<Cube> cubes;
     PApplet applet;
     Generator generator;
 
-    public ScalarField(int space, int nbPtsX, int nbPtsY, int nbPtsZ, ArrayList<Cube> cubes, Generator generator, PApplet applet) {
+    /**
+     * Create a scalar field given the individual number of points on each axis
+     * @param space space between point in pixel
+     * @param nbPtsX Number of point on x axis
+     * @param nbPtsY Number of point on y axis
+     * @param nbPtsZ Number of point on z axis
+     * @param generator The generator to used to generate the isoLevel on each point
+     * @param applet link to main processing class
+     */
+    public ScalarField(int space, int nbPtsX, int nbPtsY, int nbPtsZ, Generator generator, PApplet applet) {
         this.space = space;
         this.nbPtsX = nbPtsX;
         this.nbPtsY = nbPtsY;
         this.nbPtsZ = nbPtsZ;
-        this.cubes = cubes;
         this.applet = applet;
         this.generator = generator;
         generateField();
     }
 
+    /**
+     * Create a scalar field given the number of total points on each axis, assuming it is the same
+     * @param space space between point in pixel
+     * @param nbPts The number of points an edge our scalar field, assuming it is a square
+     * @param generator The generator to used to generate the isoLevel on each point
+     * @param applet link to main processing class
+     */
     public ScalarField(int space, int nbPts, Generator generator, PApplet applet) {
         this.space = space;
         this.nbPtsX = nbPts;
@@ -41,18 +60,19 @@ public class ScalarField implements Iterable<Cube> {
         for (int x = 0; x < nbPtsX; x++) {
             for (int y = 0; y < nbPtsY ; y++) {
                 for (int z = 0; z < nbPtsZ; z++) {
-                    int[][] pointsOffset = {{0,0,1},{1,0,1},{1,0,0},{0,0,0},{0,1,1},{1,1,1},{1,1,0},{0,1,0}};
 
+                    //see cube scheme in for reference
+                    //we are defining each cube point as an translation from point (0,0,0).
+                    int[][] pointsTranslation = {{0,0,1},{1,0,1},{1,0,0},{0,0,0},{0,1,1},{1,1,1},{1,1,0},{0,1,0}};
                     Point[] points = new Point[8];
 
                     for (int i = 0; i < 8; i++) {
-                                float px = (x + (float)pointsOffset[i][0]) * space;
-                                float py =(y + (float)pointsOffset[i][1])*space;
-                                float pz = (z + (float)pointsOffset[i][2])*space;
-                        points[i] = new Point(
+                                float px = (x + (float)pointsTranslation[i][0])*space;
+                                float py =(y + (float)pointsTranslation[i][1])*space;
+                                float pz = (z + (float)pointsTranslation[i][2])*space;
+                                points[i] = new Point(
                                 px, py, pz, generator.generate(new Point(px,py,pz,0,applet)),
                                 applet);
-                        //System.out.println(points[i]);
                     }
                     cubes.add(new Cube(points,applet));
                 }
@@ -60,12 +80,19 @@ public class ScalarField implements Iterable<Cube> {
         }
     }
 
+    /**
+     * Draw this cube
+     */
     public void draw(){
         for (Cube cube: this) {
             cube.draw();
         }
     }
 
+    /**
+     * Declare the cube as iterable to easily iterate on the points
+     * @return An iterator on the cube points
+     */
     @Override
     public Iterator<Cube> iterator() {
         return cubes.iterator();
