@@ -6,6 +6,7 @@ public class Main extends PApplet {
     float x,y,z;
     PeasyCam cam;
     ScalarField scalarField;
+    MarchingCube marchingCube;
 
     final int space = 10;
     final int nbPts = 10;
@@ -14,18 +15,19 @@ public class Main extends PApplet {
     public void settings(){
         size(512, 512, P3D);
         scalarField = new ScalarField(space,nbPts,this);
-
+        marchingCube = new MarchingCube(this.scalarField, this,123);
     }
     @Override
     public void setup(){
         cam = new PeasyCam(this, (space*nbPts)/2,(space*nbPts)/2,(space*nbPts)/2,80);
+
     }
 
     @Override
     public void draw(){
         background(255);
         scalarField.draw();
-
+        marchingCube.march();
     }
 
     public void line(Point p1, Point p2){

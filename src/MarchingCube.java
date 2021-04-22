@@ -26,6 +26,11 @@ public class MarchingCube {
                 }
             }
 
+            int[] triangulation = TriangulationTable.triTable[cubeIndex];
+
+            for(int i = 0; TriangulationTable.triTable[cubeIndex][i] !=-1; i += 3) {
+                cube.drawTriangleFromEdgeIndexes(TriangulationTable.triTable[cubeIndex][i], TriangulationTable.triTable[cubeIndex][i+1], TriangulationTable.triTable[cubeIndex][i+2]);
+            }
         }
     }
 

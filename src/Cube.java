@@ -199,10 +199,9 @@ public class Cube {
             default:
         }
 
-        applet.beginShape(PConstants.POINTS);
-        applet.line(getMiddleOfTwoPoints(cornerA1, cornerA2), getMiddleOfTwoPoints(cornerB1, cornerB2));
-        applet.line(getMiddleOfTwoPoints(cornerB1, cornerB2), getMiddleOfTwoPoints(cornerC1, cornerC2));
-        applet.endShape(applet.CLOSE);
+        Triangle triangle = new Triangle(getMiddleOfTwoPoints(cornerA1, cornerA2), getMiddleOfTwoPoints(cornerB1, cornerB2), getMiddleOfTwoPoints(cornerC1, cornerC2), this.applet);
+
+        triangle.draw();
     }
 
     private Point getMiddleOfTwoPoints(Point p1, Point p2){
