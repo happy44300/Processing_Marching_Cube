@@ -34,7 +34,7 @@ public class Cube {
         return points;
     }
 
-    public Triangle triangleFromEdgeIndexes(int edgeA, int edgeB, int edgeC){
+    public Triangle triangleFromEdgeIndexes(int edgeA, int edgeB, int edgeC, int isoLevel){
 
         Point cornerA1 = new Point(this.applet);
         Point cornerA2 = new Point(this.applet);
@@ -201,10 +201,12 @@ public class Cube {
             default:
         }
 
-        return new Triangle(getMiddleOfTwoPoints(cornerA1, cornerA2), getMiddleOfTwoPoints(cornerB1, cornerB2), getMiddleOfTwoPoints(cornerC1, cornerC2), this.applet);
+        return new Triangle(interpolate(cornerA1, cornerA2, isoLevel), interpolate(cornerB1, cornerB2,isoLevel), interpolate(cornerC1, cornerC2,isoLevel), this.applet);
     }
 
-    private Point getMiddleOfTwoPoints(Point p1, Point p2){
-        return new Point((p1.x+ p2.x)/2,(p1.y+ p2.y)/2,(p1.z + p2.z)/2, 0, this.applet);
+    private Point interpolate(Point p1, Point p2, int isoLevel){
+        float mu = ((float)isoLevel- p1.isoSurface)/(p2.isoSurface - p1.isoSurface);
+        return new Point(applet.lerp(p1.x,p2.x, mu ),applet.lerp(p1.y,p2.y,mu),applet.lerp(p1.z, p2.z, mu), 0, this.applet);
     }
+
 }

@@ -11,8 +11,8 @@ import src.generator.ground;
 public class Main extends PApplet {
 
     final int space = 10;
-    final int nbPts = 10;
-    final int isoSurface = 160;
+    final int nbPts = 15;
+    final int isoSurface = 140;
 
     PeasyCam cam;
     Generator generator;
@@ -24,15 +24,13 @@ public class Main extends PApplet {
     @Override
     public void settings(){
         size(512, 512, P3D);
-        generator = new PerlinNoise(this);
+        generator = new PerlinNoise(this,space,nbPts);
         scalarField = new ScalarField(space,nbPts,generator,this);
         marchingCube = new MarchingCube(this.scalarField, this,isoSurface);
     }
     @Override
     public void setup(){
         cam = new PeasyCam(this, (space*nbPts)/(float)2,(space*nbPts)/(float)2,(space*nbPts)/(float)2,80);
-
-
     }
 
     @Override

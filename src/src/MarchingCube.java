@@ -2,7 +2,6 @@ package src;
 
 import processing.core.PApplet;
 
-import java.util.ArrayList;
 
 public class MarchingCube {
 
@@ -33,7 +32,8 @@ public class MarchingCube {
                 cube.triangleFromEdgeIndexes(
                         TriangulationTable.triTable[cubeIndex][i],
                         TriangulationTable.triTable[cubeIndex][i+1],
-                        TriangulationTable.triTable[cubeIndex][i+2])
+                        TriangulationTable.triTable[cubeIndex][i+2],
+                        isoLevel)
                         .draw();
             }
         }
