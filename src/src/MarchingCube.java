@@ -8,7 +8,6 @@ public class MarchingCube {
 
     ScalarField scalarField;
     PApplet applet;
-    ArrayList<Triangle> triangles;
     int isoLevel;
 
     public MarchingCube(ScalarField scalarField, PApplet applet, int isolevel) {
@@ -28,19 +27,15 @@ public class MarchingCube {
                 }
             }
 
-            if(cubeIndex != 0) System.out.println(cubeIndex);
+           // if(cubeIndex != 0) System.out.println(cubeIndex);
 
             for(int i = 0; TriangulationTable.triTable[cubeIndex][i] !=-1; i += 3) {
-                cube.drawTriangleFromEdgeIndexes(
+                cube.triangleFromEdgeIndexes(
                         TriangulationTable.triTable[cubeIndex][i],
                         TriangulationTable.triTable[cubeIndex][i+1],
-                        TriangulationTable.triTable[cubeIndex][i+2]);
+                        TriangulationTable.triTable[cubeIndex][i+2])
+                        .draw();
             }
-        }
-    }
-    public void drawTriangulation(){
-        for (Triangle triangle: triangles) {
-            triangle.draw();
         }
     }
 }

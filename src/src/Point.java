@@ -3,7 +3,7 @@ package src;
 import processing.core.PApplet;
 
 public class Point {
- float x,y,z;
+ public float x,y,z;
  int isoSurface;
  PApplet main;
 

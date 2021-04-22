@@ -3,6 +3,8 @@ package src;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
+import java.time.temporal.Temporal;
+
 
 public class Cube {
     Point[] points;
@@ -32,7 +34,7 @@ public class Cube {
         return points;
     }
 
-    public void drawTriangleFromEdgeIndexes(int edgeA, int edgeB, int edgeC){
+    public Triangle triangleFromEdgeIndexes(int edgeA, int edgeB, int edgeC){
 
         Point cornerA1 = new Point(this.applet);
         Point cornerA2 = new Point(this.applet);
@@ -199,9 +201,7 @@ public class Cube {
             default:
         }
 
-        Triangle triangle = new Triangle(getMiddleOfTwoPoints(cornerA1, cornerA2), getMiddleOfTwoPoints(cornerB1, cornerB2), getMiddleOfTwoPoints(cornerC1, cornerC2), this.applet);
-
-        triangle.draw();
+        return new Triangle(getMiddleOfTwoPoints(cornerA1, cornerA2), getMiddleOfTwoPoints(cornerB1, cornerB2), getMiddleOfTwoPoints(cornerC1, cornerC2), this.applet);
     }
 
     private Point getMiddleOfTwoPoints(Point p1, Point p2){

@@ -22,10 +22,12 @@ public class Triangle {
     }
 
     public void draw(){
-        applet.beginShape(PConstants.LINE);
-        applet.line(vertices[0], vertices[1]);
-        applet.line(vertices[1], vertices[2]);
-        applet.line(vertices[2], vertices[0]);
+        applet.fill(255,0,255);
+        applet.beginShape();
+        applet.vertex(vertices[0]);
+        applet.vertex(vertices[1]);
+        applet.vertex(vertices[2]);
         applet.endShape(applet.CLOSE);
+        applet.noFill();
     }
 }
