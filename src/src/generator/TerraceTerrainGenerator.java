@@ -4,13 +4,15 @@ import processing.core.PApplet;
 import src.Point;
 
 /**
- * Generate isosurface to draw a terrain using perlin noise.
+ * Generate a terraced noise.
+ * @deprecated Not working
  */
 public class TerraceTerrainGenerator implements Generator {
     PApplet applet;
     int spacing,nbPts;
     float scale;
     int terraceHeight;
+    final int isoLevelMax = 255;
 
     /**
      *
@@ -36,15 +38,17 @@ public class TerraceTerrainGenerator implements Generator {
     @Override
     public int generate(Point pts) {
         int maxSize = spacing *nbPts;
+
         //make sure we close the shape near the border
         if(pts.x==0 || pts.x==maxSize || pts.y==0 || pts.y==maxSize || pts.z ==0 || pts.z==maxSize) return 0;
 
-        //The terrain need to be less dense the higher we get, se we subtract the height to the isosurface after normalizing it.
-        //But here we
-        float yNormalized = ((pts.y)/spacing/nbPts * 255);
-        float yIncrement = -yNormalized  + (yNormalized % terraceHeight);
+        //The terrain need to be less dense the higher we get, so we subtract the height to the isosurface making sure it is in [0,1].
+        float yIncrement = ((pts.y)/spacing/nbPts * isoLevelMax);
 
-        //since we use the coordinate between point to generate noise, we need to divide by the spacing make sure spacing bewteen the point does not influence the output
-        return Math.round( yIncrement + applet.noise((pts.x/ spacing)*scale,(pts.y/ spacing)*scale,(pts.z/ spacing)*scale)* 255);
+        //since we use the coordinate between point to generate noise, we need to divide by the spacing to make sure the scale of the scalar field does not influence the output
+        float noise =  applet.noise((pts.x/ spacing)*scale,(pts.y/ spacing)*scale,(pts.z/ spacing)*scale)* isoLevelMax;
+
+        //the trick is to add the y position modulo the desired height
+        return Math.round(-yIncrement + noise + ((pts.y)/spacing/nbPts * isoLevelMax % terraceHeight));
     }
 }

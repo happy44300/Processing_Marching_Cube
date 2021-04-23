@@ -10,6 +10,7 @@ public class TerrainGenerator implements Generator {
     PApplet applet;
     int spacing,nbPts;
     float step;
+    final int isoLevelMax = 255;
 
     /**
      *
@@ -37,9 +38,9 @@ public class TerrainGenerator implements Generator {
         if(pts.x==0 || pts.x==maxSize || pts.y==0 || pts.y==maxSize || pts.z ==0 || pts.z==maxSize) return 0;
 
         //The terrain need to be less dense the higher we get, se we subtract the height to the isosurface after normalizing it.
-        float yIncrement = -((pts.y)/spacing/nbPts * 255);
+        float yIncrement = -((pts.y)/spacing/nbPts * isoLevelMax);
 
-        //since we use the coordinate between point to generate noise, we need to divide by the spacing make sure spacing bewteen the point does not influence the output
-        return Math.round( yIncrement + applet.noise((pts.x/ spacing)* step,(pts.y/ spacing)* step,(pts.z/ spacing)* step)* 255);
+        //since we use the coordinate between point to generate noise, we need to divide by the spacing to make sure the scale of the scalar field does not influence the output
+        return  Math.round( yIncrement + applet.noise((pts.x/ spacing)* step,(pts.y/ spacing)* step,(pts.z/ spacing)* step)* isoLevelMax);
     }
 }

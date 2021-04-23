@@ -29,7 +29,7 @@ public class Main extends PApplet {
     public void settings(){
         size(512, 512, P3D);
         //generator = new TerrainGenerator(this,space,nbPts,(float)0.1);
-        generator = new TerraceTerrainGenerator(this, space,nbPts, (float) 0.1, 5);
+        generator = new TerrainGenerator(this, space,nbPts, (float) 0.1);
         scalarField = new ScalarField(space,nbPts,generator,this);
         marchingCube = new MarchingCube(this.scalarField,isoSurface);
     }
