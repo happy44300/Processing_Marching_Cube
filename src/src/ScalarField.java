@@ -94,6 +94,7 @@ public class ScalarField implements Iterable<Cube> {
     /**
      * Draw all the points inside the surface that are upside the isolevel
      * Used for debugging and demonstration purpose
+     * @param isoLevel The minimum isoLevel of the point to draw
      */
     public void drawPoints(int isoLevel){
         for (Cube cube: this) {

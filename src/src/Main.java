@@ -14,7 +14,7 @@ public class Main extends PApplet {
 
     final int space = 10;
     final int nbPts = 30;
-    final int isoSurface = 0;
+    final int isoSurface = 20;
 
     PeasyCam cam;
     Generator generator;
@@ -38,7 +38,7 @@ public class Main extends PApplet {
     public void setup(){
         //PeasyCam require to by initialized in setup instead of settings
         cam = new PeasyCam(this, (space*nbPts)/(float)2,(space*nbPts)/(float)2,(space*nbPts)/(float)2,80);
-        sphereDetail(4); //change the sphere detail when rendering point so that we don't end up burning a computer
+        sphereDetail(1); //change the sphere detail when rendering point so that we don't end up burning a computer
         marchingCube.march();
     }
 
@@ -46,7 +46,8 @@ public class Main extends PApplet {
     public void draw(){
         background(255);
         marchingCube.march();
-        //scalarField.drawPoints(120);
+        // // Uncomment to display the scalar field. May cause massive lag if a to big scalarfield is used
+        //scalarField.drawPoints(isoSurface);
     }
 
     /**
