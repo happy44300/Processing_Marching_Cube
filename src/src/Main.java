@@ -4,15 +4,17 @@ import processing.core.PApplet;
 import peasy.*;
 import src.generator.Generator;
 import src.generator.PerlinNoise;
+import src.generator.TerraceTerrainGenerator;
+import src.generator.TerrainGenerator;
 
 /**
  * Application main class
  */
 public class Main extends PApplet {
 
-    final int space = 30;
-    final int nbPts = 20;
-    final int isoSurface = 255/2;
+    final int space = 10;
+    final int nbPts = 30;
+    final int isoSurface = 0;
 
     PeasyCam cam;
     Generator generator;
@@ -26,7 +28,8 @@ public class Main extends PApplet {
     @Override
     public void settings(){
         size(512, 512, P3D);
-        generator = new PerlinNoise(this,space,nbPts,1);
+        //generator = new TerrainGenerator(this,space,nbPts,(float)0.1);
+        generator = new TerraceTerrainGenerator(this, space,nbPts, (float) 0.1, 5);
         scalarField = new ScalarField(space,nbPts,generator,this);
         marchingCube = new MarchingCube(this.scalarField,isoSurface);
     }
