@@ -29,7 +29,7 @@ public class Triangle {
      * Draw this triangle as a solid purple triangle
      */
     public void draw(){
-        applet.fill(255,0,255);
+        applet.fill(vertices[0].y,0, 255 - vertices[0].y);
         applet.beginShape();
         applet.vertex(vertices[0]);
         applet.vertex(vertices[1]);

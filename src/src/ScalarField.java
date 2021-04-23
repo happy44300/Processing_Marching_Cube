@@ -69,7 +69,7 @@ public class ScalarField implements Iterable<Cube> {
 
                     for (int i = 0; i < 8; i++) {
                                 float px = (x + (float)pointsTranslation[i][0])*space;
-                                float py =(y + (float)pointsTranslation[i][1])*space;
+                                float py =  (y + (float)pointsTranslation[i][1])*space;
                                 float pz = (z + (float)pointsTranslation[i][2])*space;
                                 points[i] = new Point(
                                 px, py, pz, generator.generate(new Point(px,py,pz,0,applet)),
