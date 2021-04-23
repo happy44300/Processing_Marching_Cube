@@ -4,9 +4,9 @@ import processing.core.PApplet;
 import src.Point;
 
 /**
- * Generate isosurface value for each point using processing Perlin noise.
+ * Generate isosurface to draw a terrain using perlin noise.
  */
-public class PerlinNoise implements Generator {
+public class TerrainGenerator implements Generator {
     PApplet applet;
     int spacing,nbPts;
     float step;
@@ -18,7 +18,7 @@ public class PerlinNoise implements Generator {
      * @param nbPts the number of points of the scalar field
      * @param  step the step between each step on the perlin noise according to processing documentation step of 0.005-0.03 work best for most application
      */
-    public PerlinNoise(PApplet applet, int spacing, int nbPts, float step) {
+    public TerrainGenerator(PApplet applet, int spacing, int nbPts, float step) {
         this.applet = applet;
         this.spacing = spacing;
         this.nbPts = nbPts;
@@ -36,7 +36,10 @@ public class PerlinNoise implements Generator {
         //make sure we close the shape near the border
         if(pts.x==0 || pts.x==maxSize || pts.y==0 || pts.y==maxSize || pts.z ==0 || pts.z==maxSize) return 0;
 
-        //Space between each input in the perlin noise need to be small so the output is smooth
-        return Math.round(applet.noise((pts.x/ spacing)* step,(pts.y/ spacing)* step,(pts.z/ spacing)* step)* 255);
+        //The terrain need to be less dense the higher we get, se we subtract the height to the isosurface after normalizing it.
+        float yIncrement = -((pts.y)/spacing/nbPts * 255);
+
+        //since we use the coordinate between point to generate noise, we need to divide by the spacing make sure spacing bewteen the point does not influence the output
+        return Math.round( yIncrement + applet.noise((pts.x/ spacing)* step,(pts.y/ spacing)* step,(pts.z/ spacing)* step)* 255);
     }
 }
