@@ -27,7 +27,7 @@ public class Main extends PApplet {
      */
     @Override
     public void settings(){
-        size(512, 512, P3D);
+        size(800, 800, P3D);
         //generator = new TerrainGenerator(this,space,nbPts,(float)0.1);
         generator = new TerrainGenerator(this, space,nbPts, (float) 0.1);
         scalarField = new ScalarField(space,nbPts,generator,this);
