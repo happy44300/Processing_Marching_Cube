@@ -1,6 +1,7 @@
 package src;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 import src.generator.Generator;
 
 import java.util.ArrayList;
@@ -81,11 +82,28 @@ public class ScalarField implements Iterable<Cube> {
     }
 
     /**
-     * Draw this cube
+     * Draw all the cubes inside the scalar field
+     * Used for debugging and demonstration purpose
      */
-    public void draw(){
+    public void drawCubes(){
         for (Cube cube: this) {
             cube.draw();
+        }
+    }
+
+    /**
+     * Draw all the points inside the surface that are upside the isolevel
+     * Used for debugging and demonstration purpose
+     */
+    public void drawPoints(int isoLevel){
+        for (Cube cube: this) {
+            for (Point point : cube.getPoints()){
+                if (point.isoLevel > isoLevel) {
+                    point.Draw(new PVector(0, 255, 0));
+                } else {
+                    point.Draw(new PVector(255,0,0));
+                }
+            }
         }
     }
 

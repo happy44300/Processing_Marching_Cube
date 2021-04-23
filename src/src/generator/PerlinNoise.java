@@ -8,18 +8,21 @@ import src.Point;
  */
 public class PerlinNoise implements Generator {
     PApplet applet;
-    int space,nbPts;
+    int spacing,nbPts;
+    int scale;
 
     /**
      *
      * @param applet link to our main processing class
-     * @param space the space between each point of the scalar field
+     * @param spacing the spacing between each point of the scalar field
      * @param nbPts the number of points of the scalar field
+     * @param  scale
      */
-    public PerlinNoise(PApplet applet, int space, int nbPts) {
+    public PerlinNoise(PApplet applet, int spacing, int nbPts, int scale) {
         this.applet = applet;
-        this.space = space;
+        this.spacing = spacing;
         this.nbPts = nbPts;
+        this.scale =scale;
     }
 
     /**
@@ -29,8 +32,10 @@ public class PerlinNoise implements Generator {
      */
     @Override
     public int generate(Point pts) {
-        int maxSize = space*nbPts;
-        if(pts.x==0 || pts.x==maxSize || pts.y==maxSize || pts.z ==0 || pts.z==maxSize) return 0;
-        return Math.round(applet.noise(pts.x,pts.y,pts.z)* 255);
+        int maxSize = spacing *nbPts;
+        //make sure we close the shape near the border
+        if(pts.x==0 || pts.x==maxSize || pts.y==0 || pts.y==maxSize || pts.z ==0 || pts.z==maxSize) return 0;
+        //since we use the coordinate between point to generate noise, we need to make sure spacing bewteen the point does not influence the output
+        return Math.round(applet.noise((pts.x/ spacing)*scale,(pts.y/ spacing)*scale,(pts.z/ spacing)*scale)* 255);
     }
 }
