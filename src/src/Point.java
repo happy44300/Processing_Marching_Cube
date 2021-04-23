@@ -1,6 +1,7 @@
 package src;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  * Represent of point with an isoLevel
@@ -59,10 +60,27 @@ public class Point {
 
     /**
      * Draw this point
-     * NOTE: Drawing a full sphere for a point is gpu intensive. Drawing a lot of points will cause slow-down
+     * NOTE: Drawing a full sphere for a point is gpu intensive. Consider reducing sphere detail otherwise
+     * drawing a lot of points will cause slow-down
      */
     public void Draw(){
-        if(isoLevel < 255/2) {
+        if(isoLevel < 255) {
+            applet.pushMatrix();
+            applet.translate(x, y, z);
+            applet.sphere(1);
+            applet.popMatrix();
+        }
+    }
+
+    /**
+     * Draw this point but in COLOR
+     * NOTE: Drawing a full sphere for a point is gpu intensive. Consider reducing sphere detail otherwise
+     * drawing a lot of points will cause slow-down
+     * @param color the color to draw this point in
+     */
+    public void Draw(PVector color){
+        if(isoLevel < 255) {
+            applet.fill(color.x,color.y,color.z);
             applet.pushMatrix();
             applet.translate(x, y, z);
             applet.sphere(1);

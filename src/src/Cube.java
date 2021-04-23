@@ -220,7 +220,10 @@ public class Cube {
             default:
         }
 
+        //NOTE: here we can use the interpolation function or the middle of the edge as an approximation for extra blocky result
+        //return new Triangle(getMiddle(cornerA1, cornerA2), getMiddle(cornerB1, cornerB2), getMiddle(cornerC1, cornerC2), this.applet);
         return new Triangle(interpolate(cornerA1, cornerA2, isoLevel), interpolate(cornerB1, cornerB2,isoLevel), interpolate(cornerC1, cornerC2,isoLevel), this.applet);
+
     }
 
     /**
@@ -233,6 +236,10 @@ public class Cube {
     private Point interpolate(Point p1, Point p2, int isoLevel){
         float mu = ((float)isoLevel- p1.isoLevel)/(p2.isoLevel - p1.isoLevel);
         return new Point(PApplet.lerp(p1.x,p2.x, mu ), PApplet.lerp(p1.y,p2.y,mu), PApplet.lerp(p1.z, p2.z, mu), 0, this.applet);
+    }
+
+    private Point getMiddle(Point p1, Point p2){
+        return new Point((p1.x + p2.x)/2,(p1.y + p2.y)/2,(p1.z + p2.z)/2,0,applet);
     }
 
 }

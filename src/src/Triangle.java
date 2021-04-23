@@ -37,4 +37,16 @@ public class Triangle {
         applet.endShape(applet.CLOSE);
         applet.noFill();
     }
+
+    /**
+     * Draw this triangle but without filling it
+     */
+    public void drawNoFill(){
+        applet.beginShape();
+        applet.vertex(vertices[0]);
+        applet.vertex(vertices[1]);
+        applet.vertex(vertices[2]);
+        applet.endShape(applet.CLOSE);
+        applet.noFill();
+    }
 }
