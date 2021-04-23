@@ -11,7 +11,7 @@ import src.generator.PerlinNoise;
 public class Main extends PApplet {
 
     final int space = 10;
-    final int nbPts = 15;
+    final int nbPts = 3;
     final int isoSurface = 140;
 
     PeasyCam cam;
@@ -40,7 +40,8 @@ public class Main extends PApplet {
     @Override
     public void draw(){
         background(255);
-        marchingCube.march();
+        //marchingCube.march();
+        scalarField.draw();
     }
 
     /**

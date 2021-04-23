@@ -33,6 +33,7 @@ public class MarchingCube {
                 }
             }
 
+
             //From the current configuration, draw the triangles
             for(int i = 0; TriangulationTable.triTable[cubeIndex][i] !=-1; i += 3) {
                 cube.triangleFromEdgeIndexes(
