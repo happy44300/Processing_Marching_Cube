@@ -9,6 +9,7 @@ import src.generator.TerrainGenerator;
 
 /**
  * Application main class
+ * Credit for this project goes to MOLLI Bilal and BOISTEAU-DESDEVISES Erwan
  */
 public class Main extends PApplet {
 
